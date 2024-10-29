@@ -24,7 +24,7 @@ const displayPhone = (phones, isShowAll) =>{
     
 
     phones.forEach(phone => {
-        console.log(phone);
+        //console.log(phone);
         const phoneCard = document.createElement('div');
         phoneCard.classList = `card card-compact bg-gray-100 p-4 shadow-xl`;
         phoneCard.innerHTML = `
@@ -35,14 +35,44 @@ const displayPhone = (phones, isShowAll) =>{
          <div class="card-body">
              <h2 class="card-title">${phone.phone_name}</h2>
              <p>If a dog chews shoes whose shoes does he choose?</p>
-             <div class="card-actions justify-end">
-             <button class="btn btn-primary">Buy Now</button>
+             <div class="card-actions justify-center">
+             <button onClick= "handleShowDetail('${phone.slug}')" class="btn btn-primary">Show Details</button>
              </div>
          </div>
          `;
          phoneContainer.appendChild(phoneCard);
     });
     toggleSpinner(false);
+}
+
+const handleShowDetail = async (id) => {
+    //console.log('clicked show detail',id);
+
+    const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
+    const data = await res.json();
+    //console.log(data);
+    const phone = data.data;
+    //console.log(phone);
+    showPhoneDetails(phone);
+}
+
+const showPhoneDetails = (phone) =>{
+    console.log(phone);
+
+    const showDetailPhoneName = document.getElementById('show_detail_phone_name');
+    showDetailPhoneName.innerText = phone.name;
+
+    const showDetailContainer = document.getElementById('show_detail_container');
+    showDetailContainer.innerHTML = `
+    <img src='${phone.image}' alt=''/>
+    <p><span>Storage: ${phone.mainFeatures
+                        .storage}</span></p>
+    <p><span>Memory: ${phone.mainFeatures
+                        .memory}</span></p>
+    <p><span>Display: ${phone.mainFeatures
+                        .displaySize}</span></p>
+    `;
+    showDetails_modal.showModal();
 }
 
 const handleSearch = (isShowAll) => {
