@@ -24,7 +24,7 @@ const displayPhone = (phones, isShowAll) =>{
     
 
     phones.forEach(phone => {
-        //console.log(phone);
+        console.log(phone);
         const phoneCard = document.createElement('div');
         phoneCard.classList = `card card-compact bg-gray-100 p-4 shadow-xl`;
         phoneCard.innerHTML = `
@@ -64,13 +64,17 @@ const showPhoneDetails = (phone) =>{
 
     const showDetailContainer = document.getElementById('show_detail_container');
     showDetailContainer.innerHTML = `
-    <img src='${phone.image}' alt=''/>
-    <p><span>Storage: ${phone.mainFeatures
-                        .storage}</span></p>
-    <p><span>Memory: ${phone.mainFeatures
-                        .memory}</span></p>
-    <p><span>Display: ${phone.mainFeatures
-                        .displaySize}</span></p>
+    <img class='mx-auto mb-2' src='${phone.image}' alt=''/>
+    <p><span><b>Storage:</b> ${phone?.mainFeatures?.storage}</span></p>
+    <p><span><b>Display:</b> ${phone?.mainFeatures?.displaySize}</span></p>
+    <p><span><b>Chipset:</b> ${phone?.mainFeatures?.chipSet}</span></p>
+    <p><span><b>Memory:</b> ${phone?.mainFeatures?.memory}</span></p>
+    <p><span><b>Slug:</b> ${phone?.slug}</span></p>
+    <p><span><b>Release Date:</b> ${phone?.releaseDate}</span></p>
+    <p><span><b>Brand:</b> ${phone?.brand}</span></p>
+    <p><span><b>GPS:</b> ${phone?.others?.
+                        GPS}</span></p>
+    
     `;
     showDetails_modal.showModal();
 }
